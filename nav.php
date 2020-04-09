@@ -1,4 +1,4 @@
-            <?php
+                      <?php
 
                     session_start();
 
@@ -15,6 +15,11 @@
             <?php }else{?>
             <a href="logout.php">Logout</a>
             <a href="reset.php">Reset Password</a>
+
+                        <?php if(isset($_SESSION['role']) && ($designation="Super Admin")){ ?>
+                        <a href="new.php">ADD NEW USER</a>
+                        <?php }?>
+
             <?php } ?>
             
             </p>
