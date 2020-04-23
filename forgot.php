@@ -10,23 +10,21 @@
 
     <?php
         include('lib/nav.php');
+        require_once('function/alert.php');
     ?>
 
     <h2>Forgot Password</h2>
     <p>Provide email details below</p>
 
-    <form action="process_forgot.php" method="post">
+    <form action="process_forgot.php" method="POST">
 
     <p>
         <?php
-             if(isset($_SESSION['error']) && !empty($_SESSION['error'])) {
-                    echo "<span style='color:red'>".$_SESSION['error']."</span>";
-                   session_destroy();
-                }
+            print_alert();
             ?>
         </p>
 
-            <p><label for="mail">email:</label>
+            <p><label for="mail">Email:</label>
                 <input 
                     <?php
                      if(isset($_SESSION['mail'])) {
@@ -35,7 +33,7 @@
             </p>
 
             <p>
-                        <button type="reset">Proceed Reset</button>
+                        <button type="submit">Proceed Reset Request</button>
             </p>
             </form>
 
