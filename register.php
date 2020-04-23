@@ -1,10 +1,15 @@
 <?php
-   
+   require_once("function/redirect.php");
+
     if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
-        header("Location: dashboard.php");
+        redirect_to("dashboard.php");
     }
+    
 
     include("lib/nav.php");
+    require_once('function/alert.php');
+
+    
 ?>
 
 
@@ -19,66 +24,47 @@
 <h1>Register</h1>
     <h2>Welcome, Kindly proceed with Registration Here</h2>
     <p><b>All forms are required</b></p>
-
+       
         <form action="process_register.php" method="post">
         
         <p>
             <?php
-                //using the $_GET
-               /* if(isset($_GET['message']) && !empty($_GET['message'])){
-                    echo "<span style= color:red>".$_GET['message']."</span>";
-                }*/
-
-               //using the $_POST
-                if(isset($_SESSION['error']) && !empty($_SESSION['error'])) {
-                    echo "<span style='color:red'>".$_SESSION['error']."</span>";
-
-                                      
-
-                   // session_unset();
-
-                   session_destroy();
-                }
+              print_alert();
             ?>
         </p>
 
         <p><label for="fname">Firstname:</label>
-        <input 
-                    <?php
-
-                        if(isset($_SESSION['fname'])) {
-                                                        
-                            echo "value= " .$_SESSION['fname']; 
-                        }
-                    ?>
-        type="text" name="fname" id="" placeholder="please enter your firstname" >
+        <input type="text" <?php if(isset($_SESSION['fname'])) { echo "value= " .$_SESSION['fname']; } ?> name="fname"  id="" placeholder="please enter your firstname" >
+        <?php if(isset($fname_error)){  ?>
+            <p><?php echo $fname_error; ?></p>
+            <?php } ?>
                     
         </p>
 
         <p><label for="lname">lastname:</label>
         <input 
                     <?php
-                        if(isset($_SESSION['lname'])) {
+                       /* if(isset($_SESSION['lname'])) {
                             echo "value= " .$_SESSION['lname']; 
-                        }
+                        }*/
                     ?>
         type="text" name="lname" id="" placeholder="please enter your lastname" ></p>
 
         <p><label for="mail">email:</label>
         <input 
                     <?php
-                        if(isset($_SESSION['mail'])) {
+                       /* if(isset($_SESSION['mail'])) {
                             echo "value= " .$_SESSION['mail']; 
-                        }
+                        }*/
                     ?>
         type="email" name="mail" id="" placeholder="give details of your email" ></p>
 
         <p><label for="password">Password</label>
         <input 
         <?php
-                        if(isset($_SESSION['password'])) {
+                       /* if(isset($_SESSION['password'])) {
                             echo "value= " .$_SESSION['password']; 
-                        }
+                        }*/
                     ?>
         type="password" name="password" id=""></p>
         
@@ -90,24 +76,24 @@
             <option>what is your gender</option>
             <option value="female">
                     <?php
-                     if(isset($_SESSION['gender']) && $_SESSION['gender']=='Female') {
+                    /* if(isset($_SESSION['gender']) && $_SESSION['gender']=='Female') {
                           echo "selected"; 
-                       }
+                       }*/
                    ?>
         
             Female</option>
             <option value="Male">
                     <?php
-                     if(isset($_SESSION['gender']) && $_SESSION['gender']=='Male') {
+                     /*if(isset($_SESSION['gender']) && $_SESSION['gender']=='Male') {
                           echo "selected"; 
-                       }
+                       }*/
                    ?>
             Male</option>
             <option value="rathernot">
             <?php
-                     if(isset($_SESSION['gender']) && $_SESSION['gender']=='Rather not say') {
+                    /* if(isset($_SESSION['gender']) && $_SESSION['gender']=='Rather not say') {
                           echo "selected"; 
-                       }
+                       }*/
                    ?>
             Rather not say</option>
         </select>
@@ -149,7 +135,7 @@
         
         type="text" name="departments" id="" placeholder="lets know your department"></p>
 
-        <button type="submit" >Register</button>
+        <button type="submit" name="submit" >Register</button>
 
         </form>
 

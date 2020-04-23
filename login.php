@@ -10,43 +10,36 @@
     <p>
     <?php
     
+
         include('lib/nav.php');
+        require_once('function/alert.php');
         if(isset($_SESSION['loggedin']) && !empty($_SESSION['loggedin'])){
             header("Location: dashboard.php");
-        }
-
-        
+        } 
         
     ?>
     </p>
 
-    <h1>Login</h1>
-
-    <p>
-            <?php
-
-        if(isset($_SESSION['message']) && !empty($_SESSION['message'])) {
-            echo "<span style='color:red'>".$_SESSION['message']."</span>";
-
-            session_destroy();
-        }
-
-        ?>
-    </p>
-
-    <form action="process_login.php" method="post">
-
-        <p>
-            <?php
+    <p><?php
                 if(isset($_SESSION['error']) && !empty($_SESSION['error'])) {
-                    echo "<span style='color:red'>".$_SESSION['error']."</span>";
+                    echo "<span style='color:green'>".$_SESSION['error']."</span>";
 
                    session_destroy();
                 }
-            ?>
+            ?></p>
 
-        </p>
-        
+    <h1>Login</h1>
+
+    <p> 
+            <?php    print_alert();   ?>
+    </p>
+
+    <span>Todays date is: <?php echo date("Y/m/d"); ?></span>
+    <label for="time">The time now is: <?php echo date("h:i:sa") ?></label>
+
+    <form action="process_login.php" method="post">
+
+            
         <p><label for="mail">Email:</label>
         <input 
                     <?php
@@ -59,11 +52,7 @@
         <p><label for="password">Password</label>
         <input type="password" name="password" id=""></p>
         <p><input type="submit" value="submit" ></p>
-    </form>
-
-
-      
-
+    </form>     
 
 </body>
 </html>

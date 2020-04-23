@@ -1,45 +1,7 @@
 <?php
     session_start();
-
-//collecting data
-/*$fname=$_POST['fname'];
-$lname=$_POST['lname'];
-$mail=$_POST['mail'];
-$pass=$_POST['password'];
-$gender=$_POST['gender'];
-$designation=$_POST['designation'];
-$dept=$_POST['departments'];
-
-
-//doing validation - done n the reg page or here
-$error=[];
-
-if ($fname ==""){
-    $error='firstname must be provided';
-}
-if ($lname ==''){
-    $error='lastname must be provided';
-}
-if ($mail ==''){
-    $error='Please provide a valid email';
-}
-if ($pass ==''){
-    $error='Confirm password is correct';
-}
-if ($gender ==''){
-    $error='select your gender';
-}
-if ($designation ==''){
-    $error='select designation';
-}
-if ($dept ==''){
-    $error='what department are you';
-}
-
-print_r($error);*/
-
-
-//verifying data and validation
+    require_once('function/users.php');
+    require_once('function/redirect.php');
 
 $errorCount= 0;
 
@@ -51,39 +13,37 @@ $gender=$_POST['gender'] != ""? $_POST['gender']:$errorCount++;
 $designation=$_POST['designation'] != ""? $_POST['designation']:$errorCount++;
 $dept=$_POST['departments'] != ""? $_POST['departments']:$errorCount++;
 
+if(empty($fname)){
+    $fname_error = "please use a valid input";
+}elseif(strlen($fname) <2){
+    $fname_error = "username should have a min of six letters";
+}
+/*elseif(!preg_match("/^[a-zA-z\s]+$/", $fname){
+    $fname_error = "username must be numbers";
+}*/
+
+if(empty($lname)){
+    $lname_error= "use a valid input";
+}
+if(empty($mail)){
+    $mail_error= "use a valid input";
+}
+
+
 $_SESSION['fname']=$fname;
 $_SESSION['lname']=$lname;
 $_SESSION['mail']=$mail;
-//$_SESSION['password']=$pass;//password needs no reset
 $_SESSION['gender']=$gender;
 $_SESSION['designation']=$designation;
 $_SESSION['departments']=$dept;
 
 
 //redirecting page
-
 if($errorCount > 0){
-    //header("Location: register.php?message=something went wrong with the submission");//redirecting for $_GET
-    $_SESSION['error']= 'You have '.$errorCount.' error';
-    
-    if(errorCount > 1){
-        $session_error .="s";
-    }
-
-    $session_error .= 'in your form submission. Please review';
-
-    $_SESSION['error'] = $session_error ;
-    
-    
-    header("Location: register.php");
+     
+    redirect_to("register.php");
 }
 else{
-
-    //assigning a unique ID by counting users
-    $allUsers = scandir("db/users/");
-    
-
-    $countAllUsers = count($allUsers);
     
     $newUserId= ($countAllUsers-1);
 
@@ -100,24 +60,16 @@ else{
         'departments'=>$dept
 
     ];
-
-    for($counter=0; $counter< $countAllUsers; $counter++){
-        $currentUser=$allUsers[$counter];
-        if($currentUser == $mail.".json"){
+    $userExists= findUser($mail);
+    
+        if($userExists){
             $_SESSION['error']= "Registration Failed. User already exists ";
-            header("Location: register.php");
+            redirect_to("register.php");
             die();
         }
     }
 
-    //using loops to verify if email address already exist in db
-    file_put_contents("db/users/".$mail. ".json", json_encode($userObject) );
+    save_user($userObject);
     $_SESSION['message']= 'You can now login '.$fname;
-    header("Location: login.php");
-   // echo "successful";
-}
-
-//saving
-
-//return back to page
+    redirect_to("login.php");
 ?>

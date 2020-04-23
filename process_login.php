@@ -1,6 +1,11 @@
 <?php
 
     session_start();
+    require_once('function/redirect.php');
+    require_once('function/alert.php');
+    require_once('function/users.php');
+    require_once('function/token.php');
+    require_once('function/email.php');
     
     $errorCount= 0;
 
@@ -19,42 +24,29 @@ if($errorCount > 0){
     $session_error .= ' in your form submission. Please review';
 
     $_SESSION['error'] = $session_error;
-
-    header("Location: login.php");
+    redirect_to("login.php");
 }
 else{
-    $allUsers = scandir("db/users/");
-    $countAllUsers = count($allUsers);
-
-     
-
-    for($counter = 0; $counter < $countAllUsers; $counter++){
-
-         $currentUser = $allUsers[$counter];
-        
-       if($currentUser == $mail .".json"){
+    $currentUser = find_user($mail);
+    
+       if($currentUser){
            
             //check supplied password
             $userString = file_get_contents("db/users/".$currentUser);
             $userObject = json_decode($userString);
-            //print_r($userObject->fname);//to obtain value of firstname
-            $passfromDB = $userObject->password;
 
+            $passfromDB = $userObject->password;
             $passfromUSER = password_verify($pass,$passfromDB); 
 
            
             if($passfromDB == $passfromUSER){
                 $_SESSION['loggedin']= $userObject->id;
+                $_SESSION['mail']= $userObject->mail;
                 $_SESSION['fullname']= $userObject->fname." ".$userObject->lname;
                 $_SESSION['role']= $userObject->designation;
+                $_SESSION['dept']=$userObject->departments;
 
-               /*  //to define access control
-               if($userObject->designation =="Patients"){
-                    header("Location: patient.php");
-                    die(); 
-                }*/
-
-               header("Location: dashboard.php");
+               redirect_to("dashboard.php");
                die();
             }
             
@@ -62,10 +54,10 @@ else{
         
     
     
+//}
 }
-}
-        $_SESSION['error'] = "Invalid Email or Password";
-        header("Location: login.php");
+        set_alert('eror', "Invalid Email or Password");
+        redirect_to("login.php");
         die(); 
 
     

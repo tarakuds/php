@@ -1,10 +1,12 @@
 <?php
     session_start();
+    require_once("function/redirect.php");
+    
     if(!isset($_SESSION['loggedin'])){
-        header("Location: dashboard.php");
+        redirect_to("dashboard.php");
     }
     session_unset();
     session_destroy();
 
-    header("Location: login.php")
+    redirect_to("login.php");
 ?>

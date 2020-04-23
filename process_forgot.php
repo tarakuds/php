@@ -1,5 +1,7 @@
 <?php
     session_start();
+    require_once('function/alert.php');
+    require_once('function/redirect.php');
 
     $errorCount= 0;
 
@@ -15,11 +17,10 @@
                 }
 
                 $session_error .= 'in your form submission. Please review';
-
-                $_SESSION['error'] = $session_error ;
+                set_alert('error', $session_error);
                 
                 
-                header("Location: forgot.php");
+                redirect_to("forgot.php");
     }
     else{
             $allUsers = scandir("db/users/");
@@ -27,33 +28,29 @@
 
             $countAllUsers = count($allUsers);
             for($counter=0; $counter< $countAllUsers; $counter++){
-            $currentUser=$allUsers[$counter];
-            if($currentUser == $mail.".json"){
-                //sending email and redirecting to reset password page
-                $subject = "Password Reset Link";
-                $txt = "A password request was made. was this u? if YES visit: localhost/healthline/reset.php";
+                    $currentUser=$allUsers[$counter];
 
-                $header = "From: no reply@healthline.com". "\r\n". "CC:me@yahoo.com";
-                
-
-                $try = mail($mail, $subject, $txt, $header);
-                print_r($try);
-                die();
-
-                if($try){
-                    $_SESSION["error"] = "password reset sent to youur email ".$mail;
-                    header("Location: login.php");
-                }else{
-                    $_SESSION["error"] = "something went wrong ";
-                    header("Location: forgot.php");
-                }
+                    if($currentUser == $mail.".json"){
+                        
+                        //generating token
+                       $token = generate_token();
+                        
+                        $subject = "Password Reset Link";
+                        $message = "A password request was made. was this u? if YES visit: localhost/healthline/reset.php".$token;
+                        $header = "From: no-reply@healthline.com". "\r\n". "CC:me@yahoo.com";
+                        
+                        file_put_contents("db/token/".$mail. ".json", json_encode(['token' =>$token]) );
+                        if (mail($mail, $subject, $message, $headers)) {
+                            $sent = true;
+                            header("Location: login.php");	
+                        }
+                send_mail( $subject, $message,$mail);
 
                 die();
         }
             }
-
-            $_SESSION["error"] = "Email not registered ".$mail;
-            header("Location: forgot.php");
+                set_alert('error', "Email not registered: ".$mail); 
+                redirect_to("forgot.php");
 
     }
 
