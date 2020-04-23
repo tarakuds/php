@@ -27,7 +27,7 @@ if($errorCount > 0){
     redirect_to("login.php");
 }
 else{
-    $currentUser = find_user($mail);
+    $currentUser = findUser($mail);
     
        if($currentUser){
            
