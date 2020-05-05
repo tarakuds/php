@@ -2,16 +2,9 @@
 <?php
     include('nav/nav.php');
     //include("function/redirect.php");
-    require_once("function/error.php");
-    //include_once("process_login.php");
-    
-
-    // if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
-    //     redirect_to("dashboard.php");
-    // }
-    //forLogin();
-
-   
+     //require_once("function/error.php");
+        //include("process_login.php");
+       
 ?>
 
 
@@ -38,7 +31,13 @@
             <form action="process_appointment.php" method="POST">
 
                 <?php 
-                    errorinfo();    
+                    //errorinfo();   
+                    // if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
+                    //     echo "<span style='color:red".$_SESSION['error']."</span>";
+                    //     session_unset();
+                    //     session_destroy(); 
+                    // } 
+                     
                 ?>
 
                         <h2>Hi <?php echo $_SESSION['name'];  ?> proceed with your appointment booking</h2>
