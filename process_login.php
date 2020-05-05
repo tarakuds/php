@@ -10,7 +10,19 @@
 
     $_SESSION['mail']=$mail;
 
-    
+    $lastLogin = date("Y/m/d "."h:i:sa");
+
+    $userObject =[
+        'login_time'=>$lastLogin,
+ ];
+ 
+ array_push($userObject['login_time']);
+ fwrite($userObject['login_time']);
+ //fwrite(json_encode($userObject,JSON_UNESCAPED_UNICODE));
+
+ //file_put_contents("db/users/".$mail.".json",json_encode($userObject));
+
+        
 
     
 
@@ -32,9 +44,7 @@
             $currentUser = $allUsers[$counter];
 
             if($currentUser == $mail.".json"){
-            
-                $lastLogin = date("Y/m/d "."h:i:sa");
-               
+                                      
                 $userObject = json_decode(file_get_contents("db/users/".$currentUser)); 
                 
                 
@@ -49,22 +59,11 @@
                     $_SESSION['role'] =$userObject ->designation;
                     $_SESSION['dept'] =$userObject ->department;
                     $_SESSION['regdate']=$userObject ->registration_date;
-
-                    array_push($a,"blue","yellow");
-
-                $userObject =[
-                    'login_time'=>$lastLogin,
-             ];
-             array_push($userObject);
-             fwrite(json_encode($userObject,JSON_UNESCAPED_UNICODE));
                     $_SESSION['login_time']= $lastLogin;
-
-                   
+           
 
                     //$lastLoginTime=$userObject ->$lastLogin;
                     //$addObject_push($lastLogin);
-                    
-                // file_put_contents("db/users/", json_encode($addObject));
 
                     if($_SESSION['role']==='Super Admin'){
                         redirect_to("dashboard.php");

@@ -52,8 +52,7 @@
             'designation'=>$designation,
             'department'=>$department,
             'registration_date'=>$registrationDate,
-            'login_time'
-            
+            'login_time'=> "",            
         ];
 
         for($counter=0; $counter < $countUser; $counter++){

@@ -27,7 +27,7 @@
               <a class="p-2 text-dark" href="viewstaff.php">View Staffs</a>
               <a class="p-2 text-dark" href="viewpatients.php">View All Patients</a>
       <?php }elseif ($_SESSION['role'] == "Patient") {?>
-        <a class="p-2 text-dark" href="trypay.php">Pay Bill</a>
+        <a class="p-2 text-dark" href="paybill.php">Pay Bill</a>
         <a class="p-2 text-dark" href="book_appointment.php">Book Appointment</a>
         <a class="p-2 text-dark" href="view_appointment.php">View Appointment</a>
         <?php }elseif ($_SESSION['role'] == "Medical Team(MT)") {?>
