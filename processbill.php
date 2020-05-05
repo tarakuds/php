@@ -9,9 +9,6 @@
 
         $_SESSION['options'] = $pay;
 
-    //  }else{
-    //     echo "transaction cancelled";
-    //     redirect_to("paybill.php");
     }
     function txtref(){
       $ref = "rave";

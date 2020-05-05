@@ -2,6 +2,7 @@
     include("nav/nav.php");
 
     require_once("function/error.php");
+    
     forLogin();
 ?>
 
