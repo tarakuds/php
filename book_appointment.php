@@ -1,8 +1,9 @@
 
 <?php
     include('nav/nav.php');
-    include("function/redirect.php");
+    //include("function/redirect.php");
     require_once("function/error.php");
+    //include_once("process_login.php");
     
 
     // if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
@@ -39,14 +40,8 @@
                 <?php 
                     errorinfo();    
                 ?>
-                <p>
-                    <label for="patient">Name</label>
-                    <input  <?php
-                            if(isset($_SESSION['patient'])){
-                                echo "value=".$_SESSION['patient'];
-                             }  
-                        ?>  type="text" name="patient" id="">
-                </p>
+
+                        <h2>Hi <?php echo $_SESSION['name'];  ?> proceed with your appointment booking</h2>
                 <p>
                     <label for="appointment_date">Date of Appointment:</label>
                     <input type="date" name="appointment_date" id="">
