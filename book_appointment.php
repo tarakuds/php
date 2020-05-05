@@ -1,7 +1,7 @@
 
 <?php
     include('nav/nav.php');
-    //include("function/redirect.php");
+    include("function/redirect.php");
     //require_once("function/error.php");
     //include_once("process_login.php");
     
@@ -118,9 +118,7 @@
                 
                 <p for="complaint">
                 <label for="complaint">Initial Complaint:</label></p>
-                <p><textarea name="complaint" id="" cols="30" rows="5">
-               
-                </textarea></p>
+                <p><textarea name="complaint" id="" cols="30" rows="5"></textarea></p>
         
                              
                 <button type="submit" name="book_submit" class="btn btn-success">Book Appointment</button><br>
