@@ -29,7 +29,7 @@
       <?php }elseif ($_SESSION['role'] == "Patient") {?>
         <a class="p-2 text-dark" href="trypay.php">Pay Bill</a>
         <a class="p-2 text-dark" href="book_appointment.php">Book Appointment</a>
-        <a class="p-2 text-dark" href="#">View Appointment</a>
+        <a class="p-2 text-dark" href="view_appointment.php">View Appointment</a>
         <?php }elseif ($_SESSION['role'] == "Medical Team(MT)") {?>
         <a class="p-2 text-dark" href="#">View all appointments</a>
         <a class="p-2 text-dark" href="booked_appointment.php">View All Patients</a>

@@ -38,7 +38,7 @@
     
     getpaidSetup({
       PBFPubKey: PBFKey,
-      customer_email: "tara@gmail.com",
+      customer_email: "user@example.com",
       customer_firstname: "Temi",
       customer_lastname: "Adelewa",
       custom_description: "Pay Internet",

@@ -2,7 +2,7 @@
 <?php
     include('nav/nav.php');
     include("function/redirect.php");
-    //require_once("function/error.php");
+    require_once("function/error.php");
     //include_once("process_login.php");
     
 
