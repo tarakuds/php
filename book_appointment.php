@@ -2,9 +2,16 @@
 <?php
     include('nav/nav.php');
     //include("function/redirect.php");
-     //require_once("function/error.php");
-        //include("process_login.php");
-       
+    //require_once("function/error.php");
+    //include_once("process_login.php");
+    
+
+    // if(isset($_SESSION['loggedIn']) && !empty($_SESSION['loggedIn'])){
+    //     redirect_to("dashboard.php");
+    // }
+    //forLogin();
+
+   
 ?>
 
 
@@ -31,19 +38,17 @@
             <form action="process_appointment.php" method="POST">
 
                 <?php 
-                    //errorinfo();   
-                    // if(isset($_SESSION['error']) && !empty($_SESSION['error'])){
-                    //     echo "<span style='color:red".$_SESSION['error']."</span>";
-                    //     session_unset();
-                    //     session_destroy(); 
-                    // } 
-                     
+                    //errorinfo();    
                 ?>
 
                         <h2>Hi <?php echo $_SESSION['name'];  ?> proceed with your appointment booking</h2>
-                <p>
+               <p>
                     <label for="appointment_date">Date of Appointment:</label>
-                    <input type="date" name="appointment_date" id="">
+                    <input <?php
+                            if(isset($_SESSION['appointment_date'])){
+                                echo "value=".$_SESSION['appointment_date'];
+                             }  
+                        ?> type="date" name="appointment_date" id="">
                 </p>
 
                 <p>
@@ -60,11 +65,26 @@
                 <label for="appointment_nature">Nature Of Appointment</label>
                 <select class="form-control" name="appointment_nature" id="">
                         <option value="">Select Department</option>
-                        <option>Emergency</option>
-                        <option>Family clinic</option>
-                        <option>General checkup</option>
-                        <option>Anti - natal</option>
-                        <option>Immunization</option>
+                        <option <?php
+                        if(isset($_SESSION['appointment_nature']) && $_SESSION['appointment_nature'] =='Emergency'){
+                                echo "selected";
+                             } ?>>Emergency</option>
+                        <option <?php
+                        if(isset($_SESSION['appointment_nature']) && $_SESSION['appointment_nature'] =='Family clinic'){
+                                echo "selected";
+                             } ?>>Family clinic</option>
+                        <option <?php
+                        if(isset($_SESSION['appointment_nature']) && $_SESSION['appointment_nature'] =='General checkup'){
+                                echo "selected";
+                             } ?>>General checkup</option>
+                        <option <?php
+                        if(isset($_SESSION['appointment_nature']) && $_SESSION['appointment_nature'] =='Anti - natal'){
+                                echo "selected";
+                             } ?>>Anti - natal</option>
+                        <option <?php
+                        if(isset($_SESSION['appointment_nature']) && $_SESSION['appointment_nature'] =='Immunization'){
+                                echo "selected";
+                             } ?>>Immunization</option>
                 </select>
                 </p>
 
@@ -73,36 +93,38 @@
                     <select class="form-control" name="medical_department" id="">
                         <option value="">Select Department</option>
                         <option <?php
-                            // if(isset($_SESSION['gender']) && $_SESSION['gender'] == 'Female'){
-                            //     echo "selected";
-                            // }  
-                        ?>>Physiotheraphy</option>                        
-                        <option>Dentist</option>
-                        <option>Optics</option>
-                        <option>Dermatology</option>
-                        <option>ENT</option>
+                            if(isset($_SESSION['medical_department']) && $_SESSION['medical_department'] =='Physiotheraphy'){
+                                echo "selected";
+                             } ?> >Physiotheraphy</option>                        
+                        <option 
+                        <?php
+                            if(isset($_SESSION['medical_department']) && $_SESSION['medical_department'] =='Dentist'){
+                                echo "selected";
+                             } ?>>Dentist</option>
+                        <option <?php
+                        if(isset($_SESSION['medical_department']) && $_SESSION['medical_department'] =='Optics'){
+                                echo "selected";
+                             } ?>>Optics</option>
+                        <option <?php
+                        if(isset($_SESSION['medical_department']) && $_SESSION['medical_department'] =='Dermatology'){
+                                echo "selected";
+                             } ?>>Dermatology</option>
+                        <option <?php
+                        if(isset($_SESSION['medical_department']) && $_SESSION['medical_department'] =='ENT'){
+                                echo "selected";
+                             } ?>>ENT</option>
                     </select>
                 </p>
                 
                 <p for="complaint">
                 <label for="complaint">Initial Complaint:</label></p>
-                <p><textarea name="complaint" id="" cols="30" rows="5"></textarea></p>
-        
-                <!-- <p>
-                    <label class="label" for="lname">Lastname</label>
-                    <input type="text"
-                    <?php 
-                        // if(isset($_SESSION['lname'])){
-                        //     echo "value=".$_SESSION['lname'];
-                        //}  ?> class="form-control" name="lname" id="lastname" placeholder="Please input your lastname">
-                </p> -->
-
-
+                <p><textarea name="complaint" id="" cols="30" rows="5">
                
+                </textarea></p>
+        
+                             
                 <button type="submit" name="book_submit" class="btn btn-success">Book Appointment</button><br>
-                <!-- <a href="forgot.php">Forgot Password</a>
-                <p for="login">Already have an accout?<a href="login.php">Login Here</a> </p>  -->
-
+               
             </form>
         </div>
     </div>
